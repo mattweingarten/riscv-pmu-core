@@ -1,0 +1,8 @@
+Cycles: 6
+IF Valid: 6
+ID Valid: 4
+EX Valid: 3
+Mem Valid: 2
+WB Valid: 2
+CPI labels: CPI, IF, ID, EX, ME, WB, R
+CPI data: 3.000000,0.000000,1.000000,1.500000,1.000000,0.000000,-0.500000
