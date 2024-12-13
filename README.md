@@ -2,7 +2,7 @@
 
 ## Collaborators
 
-Micheal (mag2346)
+Michael (mag2346)
 Prathmesh (pp2870)
 Matt (mew2260)
 

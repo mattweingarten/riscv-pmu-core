@@ -9,5 +9,5 @@
 	url = ssh://github.com/ucb-bar/libgloss-htif.git
 [submodule "ibex"]
 	path = ibex
-	url = ssh://github.com/michaelg29/ibex
+	url = git@github.com:michaelg29/ibex
 	branch = master
