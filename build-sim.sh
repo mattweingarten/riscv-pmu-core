@@ -9,4 +9,3 @@ cd chipyard/sims/verilator
 
 make CONFIG=$1
 mv simulator-chipyard.harness-$1 ../../../build/sims/$2.sim
-
