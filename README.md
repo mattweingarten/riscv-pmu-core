@@ -139,10 +139,57 @@ minstret = 187526
 ```
 
 
+# IBEX Simulation
 
+### Step 1: Install FuseSoC
+Ibex uses FuseSoC to manage and integrate the different modules and create the final top-level module. Ibex uses a custom fork of FuseSoC, so install it with the following link:
+```
+https://github.com/lowRISC/fusesoc/tree/ot
+```
 
+### Step 2: Prepare the Directory
+After installing and verifying FuseSoC, locate the Ibex repository and build the top-level module. FuseSoC will gather the dependencies and compile the core.
+```
+fusesoc --cores-root . run --target=lint --setup --build-root ./build/ibex_out lowrisc:ibex:ibex_top
+```
+Additionally, install the Python dependencies using the following command
+```
+pip3 install -U -r python-requirements.txt
+```
 
+Install Verilator
+FuseSoC may cause errors if your verilator version is not up-to-date. PIP may not have the latest version, so install it using the following guide:
+```
+https://verilator.org/guide/latest/install.html
+```
+### Step 3: Compile the Core
+We can now use the Ibex-Simple-System to run software simulations using the Ibex core. We will compile the core using OPENTITAN configuration. If you want to change the specifications or change other configurations, refer to the ibex_configs.yaml file.
+```
+fusesoc --cores-root=. run --target=sim --setup --build \
+        lowrisc:ibex:ibex_simple_system $(util/ibex_config.py opentitan fusesoc_opts)
+```
+### Step 4:Compile C Program 
+We can now generate the .elf, .o, .d, .vmem files used by Simple-System from a sample hello_test program using:
+```
+make -C examples/sw/simple_system/hello_test
+```
+To compile benchmarks, run the following command:
+```
+make compile_benchmarks
+```
+Any files not compiled/having errors will be outputted to the terminal and compile_benchmark.log file.
 
+### Step 5: Run Simulation
+Lastly, we can run the simulation and see program counter statistics as terminal output.
+```
+./build/lowrisc_ibex_ibex_simple_system_0/sim-verilator/Vibex_simple_system [-t] --meminit=ram,./examples/sw/simple_system/hello_test/hello_test.elf
+
+```
+
+To run benchmarks, run the following command:
+```
+make run_benchmarks
+```
 
 
 
