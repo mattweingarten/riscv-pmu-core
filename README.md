@@ -160,6 +160,10 @@ mcycle = 229097
 minstret = 187526
 ```
 
+## Step 4: RISC-V GNU toolchain (optional)
+
+This step is only for if anything goes wrong in other steps, build the <a href="https://github.com/riscv-collab/riscv-gnu-toolchain" >`riscv-gnu-toolchain`</a> from source for both 32 bit and 64 bit and add them to your path. 
+
 
 # Rocket Core Simulation
 
