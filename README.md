@@ -249,6 +249,15 @@ Next we can build all the benchmarks with:
 bash build-benchmarks.sh
 ```
 
+
+Compiler flags can also be specified to with for example:
+
+```
+bash build-benchmarks.sh "-O0 -fno-inline"
+```   
+
+For the results in the paper, this defaults to `-O0` and no flags need to be set. 
+
 Both the benchmarks and should be found in `build/benchmarks/` and `build/sims` respectively.
 
 ## Setting up ssh server (optional when running locally)
