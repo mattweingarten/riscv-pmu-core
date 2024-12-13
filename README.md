@@ -7,6 +7,30 @@ Prathmesh (pp2870)
 Matt (mew2260)
 
 
+# For Artifact evaluation
+
+To evaluate our artifact detailed instructions are included in this README. First follow the  <a href=# General Setup>General Setup</a>
+
+All the RocketCore results can be replicated, including generating the plots. The steps are outlined in
+ <a href=# Rocket Core Simulation>RocketCore Simulation </a>
+
+
+The Ibex results can be replicated up until the data is produced in csv files, see  section <a href=# IBEX Simulation>IBEX Simulation </a>
+
+
+The results from in-house cannot be reproduced as it should remain private. Same for the VLSI flow will also remain private
+
+## Checklist
+
+<ul>
+  <li>**Program & benchmarks: ** various benchmarks all collected in repo, including Dhrystone and Coremark, riscv-tests/ submodule, and custom microbenchmarks in benchmarks/
+ </li>
+  <li>**Risc-v toolchain: ** installed by setup </li>
+  <li>**Time to complete experiments** RTL simulation is quite slow, running all benchmarks will take around ~12 hours. We recommend using cloudlab (our setup works with Cloudlab, but any ssh server available is ok and local run works as well.) </li>
+</ul>
+
+
+
 # General Setup
 
 DO NOT use git submodule recurse. Follow steps here.
@@ -105,14 +129,12 @@ This may take a few mins, but the output should be:
 ```
 [UART] UART0 is here (stdin/stdout).
 Hello world from core 0, a rocket
-
-
 ```
 
 
-### Step 3: Running dhrystone micro-benchmark 
+### Step 3: Running dhrystone micro-benchmark (optional)
 
-Dhrystone is meant to test performance of processor for a small C benchmark. 
+This step is optional for setup, but a good sanity check if everything is working properly. Dhrystone is meant to test performance of processor for a small C benchmark. 
 
 
 First cd into `<path-to-riscv-pmu-core>/riscv-tests/benchmarks`
@@ -137,6 +159,105 @@ Dhrystones per Second:                      2182
 mcycle = 229097
 minstret = 187526
 ```
+
+
+# Rocket Core Simulation
+
+To make sure the right version is run:
+
+The hash for the top-repo is: 
+8aed98e20f12c5d9492802fed8002b6dc32ab2bc
+
+Hash for RocketCore submodule is:
+a236273976c7774c6ccba2672b6b83dbdb5f6842
+
+Hash for chipyard submodule is: 
+cca952731bb6597a3d9f334e51de2e24f6db298b
+
+
+We assume the general setup is successful, and we are in the correct conda environment:
+
+```
+source chipyard/env.sh
+```
+
+## Building RTL Simulation harness
+
+From the root directory of this repo, run 
+
+```
+bash build-sim.sh RocketConfig artifact.sim
+```
+This will create an executable RTL simulator with the name `artifact.sim`
+
+Next we can build all the benchmarks with:
+
+```
+bash build-benchmarks.sh
+```
+
+Both the benchmarks and should be found in `build/benchmarks/` and `build/sims` respectively. 
+ 
+## Setting up ssh server (optional when running locally)
+
+First copy the `scripts/cloudlab-setup.sh` and `scripts/run-experiment.sh` to ssh server with: 
+```
+scp scripts/cloudlab-setup.sh <user>@<server-address>:/users/<user> 
+```
+
+And on the ssh server: 
+
+```
+<user>@node:~ bash cloudlab-setup
+```
+
+If we are using an ssh server, we require the following steps: 
+
+```
+bash local-setup.sh <user>@<server-address> <user>
+```
+This step copies all the static library files to the ssh server to let the RTL simulation run, all the necessary scripts, all the benchmarks and the simulation binary. 
+
+
+## Running RTL simulation
+
+
+It is recommended to run this step with either `tmux` or `screen` to allow the simulation to run in the background. 
+
+
+Everything should be setup already on ssh server. All we need to do is run: 
+
+```
+<user>@node:~ bash run-experiment.sh <sim-binary> <out-dir> <suffix>
+```
+in our case this command should run:
+```
+<user>@node:~ bash run-experiment.sh artifact.sim out artifact
+```
+
+During the RTL some error messages will pop up that look like this: 
+```
+%Error: TestHarness.sv:166: Assertion failed in TOP.TestDriver.testHarness: Assertion failed: *** FAILED *** (exit code =          5)
+```
+
+These are safe to ignore, and valid results will still be produced.
+
+Once the experiment is complete, we have all our results in the `out` folder on the ssh-server. Copy this folder to the root directory in this repo. Finally, we can run the plotting script with: 
+
+```
+python3 plotting/cpi_plot.py out/ rocket
+```
+That will produce a plot that should look like this: 
+![rocket.png](images/rocket.png "CPI stacks for RocketCore")
+
+
+
+
+
+
+
+
+
 
 
 # IBEX Simulation

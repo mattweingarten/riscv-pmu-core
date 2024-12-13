@@ -2,19 +2,12 @@
 
 
 CLOUDLAB="$1"
-CHIPYARD="$2"
-USERS="$3"
+OUT_DIR=/users/$2
+scp chipyard/.conda-env/riscv-tools/lib/*.so $CLOUDLAB:$OUT_DIR/lib
 
-
-PWD="$(pwd)"
-
-# OUT_DIR=/dev/shm
-OUT_DIR=/users/$3
-
-# scp $CHIPYARD/tests/*.riscv $CLOUDLAB:$OUT_DIR/tests/
-# scp $CHIPYARD/sims/verilator/$RTL_SIM $CLOUDLAB:$OUT_DIR
-
-scp $CHIPYARD/.conda-env/riscv-tools/lib/*.so $CLOUDLAB:$OUT_DIR/lib
-
-scp  $CHIPYARD/.conda-env/lib/*.so $CLOUDLAB:$OUT_DIR/lib
-scp  $CHIPYARD/.conda-env/lib/*.so.* $CLOUDLAB:$OUT_DIR/lib
+scp  chipyard/.conda-env/lib/*.so $CLOUDLAB:$OUT_DIR/lib
+scp  chipyard/.conda-env/lib/*.so.* $CLOUDLAB:$OUT_DIR/lib
+scp  scripts/run-experiment.sh $CLOUDLAB:$OUT_DIR/
+scp  scripts/cloudlab-setup.sh $CLOUDLAB:$OUT_DIR/
+scp  build/sims/* $CLOUDLAB:$OUT_DIR/
+scp -r build/benchmarks/ $CLOUDLAB:$OUT_DIR/
