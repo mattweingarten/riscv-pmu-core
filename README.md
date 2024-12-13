@@ -165,15 +165,21 @@ minstret = 187526
 
 To make sure the right version is run:
 
-The hash for the top-repo is: 
-8aed98e20f12c5d9492802fed8002b6dc32ab2bc
-
-Hash for RocketCore submodule is:
-a236273976c7774c6ccba2672b6b83dbdb5f6842
+The hash for the top-repo is is not important, it should be up to date. If all else fails, use hash: `aef67939188b2d015f5a9fce90313f1e954165b1`
 
 Hash for chipyard submodule is: 
-cca952731bb6597a3d9f334e51de2e24f6db298b
+`cca952731bb6597a3d9f334e51de2e24f6db298b`
 
+Hash for RocketCore submodule is:
+`a236273976c7774c6ccba2672b6b83dbdb5f6842`
+
+
+
+To make sure everything is correct, run:
+
+```
+cd chipyard && git checkout cca952731bb6597a3d9f334e51de2e24f6db298b && cd generators/rocket-chip && git checkout a236273976c7774c6ccba2672b6b83dbdb5f6842 && ../../../
+```
 
 We assume the general setup is successful, and we are in the correct conda environment:
 
@@ -234,6 +240,7 @@ in our case this command should run:
 ```
 <user>@node:~ bash run-experiment.sh artifact.sim out artifact
 ```
+Note this command expects a `benchmark/` directory to be in current directory.
 
 During the RTL some error messages will pop up that look like this: 
 ```
