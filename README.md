@@ -239,7 +239,7 @@ source chipyard/env.sh
 From the root directory of this repo, run
 
 ```
-bash build-sim.sh RocketConfig artifact.sim
+bash build-sim.sh RocketConfig artifact
 ```
 This will create an executable RTL simulator with the name `artifact.sim`
 
