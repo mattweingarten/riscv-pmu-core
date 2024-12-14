@@ -16,7 +16,7 @@ cd ../../
 
 
 cd generators/boom/
-git remote set-url origin git@github.com:mattweingarten/rocket-chip.git
+git remote set-url origin git@github.com:mattweingarten/riscv-boom.git
 git checkout boom_chip
 cd ../../
 
