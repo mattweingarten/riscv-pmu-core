@@ -1,13 +1,13 @@
 [submodule "chipyard"]
 	path = chipyard
-	url = ssh://github.com/mattweingarten/chipyard
+	url = git@github.com:mattweingarten/chipyard.git
 [submodule "riscv-tests"]
 	path = riscv-tests
-	url = ssh://github.com/mattweingarten/riscv-tests
+	url = git@github.com:mattweingarten/riscv-tests.git
 [submodule "libgloss"]
 	path = libgloss
-	url = ssh://github.com/ucb-bar/libgloss-htif.git
+	url = git@github.com:ucb-bar/libgloss-htif.git
 [submodule "ibex"]
 	path = ibex
 	url = git@github.com:michaelg29/ibex
-	branch = master
+	branch = master	
