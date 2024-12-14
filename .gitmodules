@@ -11,3 +11,6 @@
 	path = ibex
 	url = git@github.com:michaelg29/ibex
 	branch = master	
+[submodule "coremark"]
+	path = coremark
+	url = git@github.com:mattweingarten/riscv-coremark.git
